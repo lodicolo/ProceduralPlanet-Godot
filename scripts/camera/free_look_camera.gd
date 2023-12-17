@@ -9,6 +9,12 @@ extends Camera3D
 
 @onready var _velocity = default_velocity
 
+func _ready():
+	set_process_unhandled_input(true)
+
+func _unhandled_input(event):
+	breakpoint;
+
 func _input(event):
 	if not current:
 		return

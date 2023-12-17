@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://g31nb23b03kn"]
 
 [ext_resource type="Shader" path="res://materials/shaders/Earth.gdshader" id="1_02dij"]
-[ext_resource type="Texture2D" uid="uid://bq4xycj0rtcgs" path="res://materials/textures/EarthNoise.png" id="2_qhhly"]
+[ext_resource type="Texture2D" uid="uid://daj1y1q8bes2x" path="res://materials/textures/EarthNoise.png" id="2_qhhly"]
 
 [resource]
 render_priority = 5

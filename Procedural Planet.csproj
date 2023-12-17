@@ -1,0 +1,47 @@
+<Project Sdk="Godot.NET.Sdk/4.2.0">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>ProceduralPlanet</RootNamespace>
+    <LangVersion>11</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="scripts\camera\free_look_camera.gd" />
+    <Content Include="scripts\effects\post_processing\AtmosphereEffect.gd" />
+    <Content Include="scripts\effects\post_processing\OceanEffect.gd" />
+    <Content Include="scripts\effects\post_processing\PlanetEffectHolder.gd" />
+    <Content Include="scripts\effects\post_processing\PlanetEffects.gd" />
+    <Content Include="scripts\effects\ShakeEffect.gd" />
+    <Content Include="scripts\globals\ColorUtils.gd" />
+    <Content Include="scripts\globals\MathUtils.gd" />
+    <Content Include="scripts\globals\test.gd" />
+    <Content Include="scripts\misc\quick_rotate.gd" />
+    <Content Include="scripts\planet\CelestialBodyGenerator.gd" />
+    <Content Include="scripts\planet\CelestialBodySettings.gd" />
+    <Content Include="scripts\planet\monitors\AtmosphereEntryExitMonitor.gd" />
+    <Content Include="scripts\planet\settings\AtmosphereSettings.gd" />
+    <Content Include="scripts\planet\settings\LODParameter.gd" />
+    <Content Include="scripts\planet\settings\noise_settings\RidgeNoiseSettings.gd" />
+    <Content Include="scripts\planet\settings\noise_settings\SimplexNoiseSettings.gd" />
+    <Content Include="scripts\planet\settings\OceanSettings.gd" />
+    <Content Include="scripts\planet\settings\port-exports.js" />
+    <Content Include="scripts\planet\settings\ResolutionSettings.gd" />
+    <Content Include="scripts\planet\shading\CelestialBodyShading.gd" />
+    <Content Include="scripts\planet\shading\colors\EarthColors.gd" />
+    <Content Include="scripts\planet\shading\EarthShading.gd" />
+    <Content Include="scripts\planet\shading\modules\EarthShadingModule.gd" />
+    <Content Include="scripts\planet\shading\modules\ShadingDataModule.gd" />
+    <Content Include="scripts\planet\shape\CelestialBodyShape.gd" />
+    <Content Include="scripts\planet\shape\mesh\PlanetSphereMesh.gd" />
+    <Content Include="scripts\planet\shape\modules\EarthHeightModule.gd" />
+    <Content Include="scripts\planet\shape\modules\HeightModule.gd" />
+    <Content Include="scripts\planet\shape\modules\PerturbModule.gd" />
+    <Content Include="scripts\planet\shape\modules\PerturbPointsModule.gd" />
+    <Content Include="scripts\stars\Stars.gd" />
+    <Content Include="scripts\sun\DirectionalLight3d.gd" />
+    <Content Include="scripts\ui\slider_test.gd" />
+  </ItemGroup>
+</Project>

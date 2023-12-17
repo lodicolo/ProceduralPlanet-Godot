@@ -15,7 +15,7 @@ var prev_intersecting_areas : Array[Area3D] = []
 
 func _ready():
 	var atmosphere_radius : float = \
-		(1.0 + planet.body.shading.atmosphere_settings.atmosphere_scale) * planet.body_scale()
+		(1.0 + planet.body.shading.atmosphere_settings.AtmosphereScale) * planet.body_scale()
 	# Inner border starts at 30% of atmosphere thickness
 	atmosphere_inner.get_child(0).shape.radius = \
 		planet.body_scale() + 0.3 * (atmosphere_radius - planet.body_scale())
