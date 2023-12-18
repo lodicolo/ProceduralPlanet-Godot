@@ -67,7 +67,7 @@ func set_terrain_properties(_material : Material, _height_min_max : Vector2, _bo
 	pass
 
 func set_ocean_properties(material : Material):
-	ocean_settings.set_properties(material, seed_, randomize_)
+	ocean_settings.SetProperties(material, seed_, randomize_)
 
 func on_data_changed():
 	emit_signal("changed")

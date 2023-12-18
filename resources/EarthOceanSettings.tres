@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="OceanSettings" load_steps=5 format=3 uid="uid://c81covgcp35k5"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://c81covgcp35k5"]
 
-[ext_resource type="Script" path="res://scripts/planet/settings/OceanSettings.gd" id="1_561w0"]
+[ext_resource type="Script" path="res://scripts/planet/settings/OceanSettings.cs" id="1_561w0"]
 [ext_resource type="Texture2D" uid="uid://o6ljmg5qjlyo" path="res://materials/textures/water_foam.png" id="1_a2wmy"]
 [ext_resource type="Texture2D" uid="uid://bx3bqreg78lvt" path="res://materials/textures/Wave B.png" id="3_iaedc"]
 
@@ -9,23 +9,25 @@
 [resource]
 resource_name = "Ocean Settings"
 script = ExtResource("1_561w0")
-depth_multiplier = 30.0
-alpha_multiplier = 50.0
-colA = Color(0, 0, 0.776471, 1)
-colB = Color(0, 0.564706, 0.670588, 1)
-specular_col = Color(0.603922, 1, 1, 1)
-wave_normal_A = SubResource("CompressedTexture2D_ex8b4")
-wave_normal_B = ExtResource("3_iaedc")
-wave_strength = 0.704
-wave_scale = 5.0
-wave_speed = 0.1
-shore_wave_height = 0.1
-smoothness = 0.961
-specular_intensity = 0.5
-foam_noise_texture = ExtResource("1_a2wmy")
-foam_color = Color(1, 1, 1, 1)
-foam_noise_scale = 0.5
-foam_falloff_distance = 1.0
-foam_leading_edge_falloff = 0.5
-foam_edge_falloff_bias = 0.6
-refraction_scale = 1.0
+AlphaMultiplier = 50.0
+ColorA = Color(0, 0, 0.776471, 1)
+ColorB = Color(0, 0.564706, 0.670588, 1)
+DepthMultiplier = 30.0
+FoamColor = Color(1, 1, 1, 1)
+FoamEdgeFalloffBias = 0.6
+FoamFalloffDistance = 1.0
+FoamLeadingEdgeFalloff = 0.5
+FoamNoiseScale = 0.5
+FoamNoiseTexture = ExtResource("1_a2wmy")
+RefractionScale = 1.0
+ShoreWaveHeight = 0.1
+Smoothness = 0.961
+SpecularColor = Color(0.603922, 1, 1, 1)
+SpecularIntensity = 0.5
+WaveNormalA = SubResource("CompressedTexture2D_ex8b4")
+WaveNormalB = ExtResource("3_iaedc")
+WaveScale = 5.0
+WaveSpeed = 0.1
+WaveStrength = 0.704
+Level = 1.0
+Enabled = true

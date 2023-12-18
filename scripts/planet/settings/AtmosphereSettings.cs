@@ -25,7 +25,7 @@ public partial class AtmosphereSettings : SettingsResource
     private int _textureSize = 256;
     private Vector3 _wavelengths = new(700, 530, 460);
 
-    [Export]
+    [Export(PropertyHint.Range, "0,1")]
     public float AtmosphereScale
     {
         get => _atmosphereScale;
