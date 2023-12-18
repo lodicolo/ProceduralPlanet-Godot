@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using System.Diagnostics;
+using ProceduralPlanet.scripts.camera;
 
 public partial class Main : Node2D
 {

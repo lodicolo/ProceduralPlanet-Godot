@@ -1,12 +1,14 @@
-using Godot;
 using System;
+using Godot;
+
+namespace ProceduralPlanet.scripts.camera;
 
 public partial class FreeLookCamera3D : Camera3D
 {
 	[Export(PropertyHint.Range, "0,10,0.01")] public float Sensitivity { get; set; } = 3;
 
 	[Export(PropertyHint.Range, "0,1000,0.1")]
-	public float DefaultSpeed { get; set; } = 10;
+	public float DefaultSpeed { get; set; } = 100;
 
 	[Export(PropertyHint.Range, "0,10,0.01")]
 	public float SpeedScale { get; set; } = 1.17f;
@@ -73,64 +75,14 @@ public partial class FreeLookCamera3D : Camera3D
 						break;
 				}
 				break;
-
-			case InputEventKey keyEvent:
-			{
-				switch (keyEvent.Keycode)
-				{
-					case Key.Q:
-					case Key.E:
-					case Key.Shift:
-					case Key.Ctrl:
-					case Key.W:
-					case Key.A:
-					case Key.S:
-					case Key.D:
-					case Key.Up:
-					case Key.Left:
-					case Key.Down:
-					case Key.Right:
-					{
-						int x = 0, y = 0, z = 0;
-
-						if (Input.IsPhysicalKeyPressed(Key.W) || Input.IsPhysicalKeyPressed(Key.Up))
-						{
-							z -= 1;
-						}
-
-						if (Input.IsPhysicalKeyPressed(Key.S) || Input.IsPhysicalKeyPressed(Key.Down))
-						{
-							z += 1;
-						}
-
-						if (Input.IsPhysicalKeyPressed(Key.A) || Input.IsPhysicalKeyPressed(Key.Left))
-						{
-							x -= 1;
-						}
-
-						if (Input.IsPhysicalKeyPressed(Key.D) || Input.IsPhysicalKeyPressed(Key.Right))
-						{
-							x += 1;
-						}
-
-						if (Input.IsPhysicalKeyPressed(Key.Q))
-						{
-							y -= 1;
-						}
-
-						if (Input.IsPhysicalKeyPressed(Key.E))
-						{
-							y += 1;
-						}
-
-						_inputDirection = new Vector3(x, y, z);
-						_sprint = Input.IsPhysicalKeyPressed(Key.Shift);
-						break;
-					}
-				}
-				break;
-			}
 		}
+
+		_inputDirection = new Vector3(
+			Input.GetAxis("move_left", "move_right"),
+			Input.GetAxis("move_down", "move_up"),
+			Input.GetAxis("move_forward", "move_backward")
+		);
+		_sprint = Input.IsActionPressed("move_fast");
 
 		Console.WriteLine($"{Name} [{GetType().Name}] {nameof(_Input)}: {inputEvent.GetType().Name}");
 	}
