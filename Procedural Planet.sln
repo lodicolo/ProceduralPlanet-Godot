@@ -2,6 +2,10 @@
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Procedural Planet", "Procedural Planet.csproj", "{B13AD371-528F-4BEC-A58A-C5601DEF875F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Godot.Extensions", "Godot.Extensions\Godot.Extensions.csproj", "{254F5B65-B3B4-48F9-835C-00A8C192A71F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Godot.Extensions.Tests", "Godot.Extensions.Tests\Godot.Extensions.Tests.csproj", "{CF4C7BF5-D295-4930-8B85-DF0B714A637E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -15,5 +19,17 @@ Global
 		{B13AD371-528F-4BEC-A58A-C5601DEF875F}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{B13AD371-528F-4BEC-A58A-C5601DEF875F}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{B13AD371-528F-4BEC-A58A-C5601DEF875F}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{254F5B65-B3B4-48F9-835C-00A8C192A71F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{254F5B65-B3B4-48F9-835C-00A8C192A71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{254F5B65-B3B4-48F9-835C-00A8C192A71F}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{254F5B65-B3B4-48F9-835C-00A8C192A71F}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{254F5B65-B3B4-48F9-835C-00A8C192A71F}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{254F5B65-B3B4-48F9-835C-00A8C192A71F}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{CF4C7BF5-D295-4930-8B85-DF0B714A637E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4C7BF5-D295-4930-8B85-DF0B714A637E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4C7BF5-D295-4930-8B85-DF0B714A637E}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4C7BF5-D295-4930-8B85-DF0B714A637E}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4C7BF5-D295-4930-8B85-DF0B714A637E}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4C7BF5-D295-4930-8B85-DF0B714A637E}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

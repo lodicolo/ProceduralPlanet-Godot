@@ -5,12 +5,6 @@ using Godot;
 using ProceduralPlanet.scripts.planet.settings;
 using static ProceduralPlanet.Utilities.PropertyHelper;
 
-[Tool]
-public partial class PlanetSphereMesh : Resource
-{
-
-}
-
 public partial class CelestialBodyGenerator : StaticBody3D
 {
 	private bool _dirty;
@@ -81,10 +75,10 @@ public partial class CelestialBodyGenerator : StaticBody3D
 		}
 	}
 
-	private CelestialBodySettings? _bodySettings;
+	private ProceduralPlanet.scripts.planet.CelestialBodySettings? _bodySettings;
 
 	[Export]
-	public CelestialBodySettings? BodySettings
+	public ProceduralPlanet.scripts.planet.CelestialBodySettings? BodySettings
 	{
 		get => _bodySettings;
 		set

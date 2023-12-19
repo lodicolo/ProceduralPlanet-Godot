@@ -1,0 +1,15 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2936e9b6_002Dcce6_002D44bf_002Db7bd_002D9fd1cc25d585/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;Godot.Extensions.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/me/godot/samples/ProceduralPlanetGodot/Godot.Extensions.Tests" Presentation="&amp;lt;Godot.Extensions.Tests&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3b1d5361_002D3b60_002D410d_002Db140_002D678be589e7ff/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ToByteArray_Primitives_bool #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::CF4C7BF5-D295-4930-8B85-DF0B714A637E::net7.0::Godot.Extensions.Tests.ArrayExtensionsTests.ToByteArray_Primitives_bool&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5e9a3f49_002D143a_002D4163_002Db8ad_002D542e42e69be6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ToByteArray_Primitives_bool" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::CF4C7BF5-D295-4930-8B85-DF0B714A637E::net7.0::Godot.Extensions.Tests.ArrayExtensionsTests.ToByteArray_Primitives_bool&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

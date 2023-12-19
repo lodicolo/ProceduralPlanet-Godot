@@ -1,7 +1,6 @@
 using System;
-using Godot;
 
-namespace ProceduralPlanet.Utilities;
+namespace Godot.Extensions;
 
 public static class ColorExtensions
 {

@@ -19,12 +19,12 @@ func update_settings(
 		material = ShaderMaterial.new()
 		material.shader = shader
 		material.render_priority = -1
-	
+
 	var centre : Vector3 = generator.global_position
 	var radius : float = generator.get_ocean_radius()
 	material.set_shader_parameter("OceanCentre", centre)
 	material.set_shader_parameter("OceanRadius", radius)
-	
+
 	var tex = source_viewport.get_texture()
 	material.set_shader_parameter("MainTex", tex)
 
@@ -34,7 +34,7 @@ func update_settings(
 	else:
 		material.set_shader_parameter("DirToSun", Vector3.UP)
 		print_debug("No DirectionalLight3D found")
-	generator.body.shading.set_ocean_properties(material)
-	
+	generator.body.Shading.SetOceanProperties(material)
+
 func get_material():
 	return material

@@ -1,54 +1,54 @@
 [gd_resource type="Resource" script_class="CelestialBodyShape" load_steps=11 format=3 uid="uid://c7kr5gdkvgcb"]
 
-[ext_resource type="Script" path="res://scripts/planet/settings/noise_settings/SimplexNoiseSettings.gd" id="1_5xb5q"]
-[ext_resource type="Script" path="res://scripts/planet/shape/modules/EarthHeightModule.gd" id="1_foy8k"]
-[ext_resource type="Script" path="res://scripts/planet/settings/noise_settings/RidgeNoiseSettings.gd" id="2_0nuac"]
-[ext_resource type="Script" path="res://scripts/planet/shape/modules/PerturbPointsModule.gd" id="2_qfkpy"]
-[ext_resource type="Script" path="res://scripts/planet/shape/CelestialBodyShape.gd" id="3_u4qxu"]
+[ext_resource type="Script" path="res://scripts/planet/settings/noise_settings/SimplexNoiseSettings.cs" id="1_5xb5q"]
+[ext_resource type="Script" path="res://scripts/planet/shape/modules/EarthHeightModule.cs" id="1_foy8k"]
+[ext_resource type="Script" path="res://scripts/planet/settings/noise_settings/RidgeNoiseSettings.cs" id="2_0nuac"]
+[ext_resource type="Script" path="res://scripts/planet/shape/modules/PerturbPointsModule.cs" id="2_qfkpy"]
+[ext_resource type="Script" path="res://scripts/planet/shape/CelestialBodyShape.cs" id="3_u4qxu"]
 
 [sub_resource type="Resource" id="Resource_cs1vh"]
 script = ExtResource("1_5xb5q")
-num_layers = 5
-lacunarity = 2.0
-persistence = 0.5
-scale = 1.0
-elevation = 2.64
-vertical_shift = -0.63
-offset = Vector3(0, 0, 0)
+Elevation = 2.64
+Lacunarity = 2.0
+Layers = 5
+Offset = Vector3(0, 0, 0)
+Persistence = 0.5
+Scale = 1.0
+VerticalShift = -0.63
 
 [sub_resource type="Resource" id="Resource_3gob8"]
 script = ExtResource("1_5xb5q")
-num_layers = 3
-lacunarity = 1.66
-persistence = 0.55
-scale = 1.09
-elevation = 1.0
-vertical_shift = 0.02
-offset = Vector3(0, 0, 0)
+Elevation = 1.0
+Lacunarity = 1.66
+Layers = 3
+Offset = Vector3(0, 0, 0)
+Persistence = 0.55
+Scale = 1.09
+VerticalShift = 0.02
 
 [sub_resource type="Resource" id="Resource_f7se2"]
 script = ExtResource("2_0nuac")
-num_layers = 5
-lacunarity = 4.0
-persistence = 0.5
-scale = 1.5
-power = 2.18
-elevation = 8.7
-gain = 0.8
-vertical_shift = 0.09
-peak_smoothing = 1.0
-offset = Vector3(0, 0, 0)
+Elevation = 8.7
+Gain = 0.8
+Lacunarity = 4.0
+Layers = 5
+Offset = Vector3(0, 0, 0)
+PeakSmoothing = 1.0
+Persistence = 0.5
+Power = 2.18
+Scale = 1.5
+VerticalShift = 0.09
 
 [sub_resource type="Resource" id="Resource_0ol4x"]
 resource_name = "Height Module"
 script = ExtResource("1_foy8k")
-continents_noise = SubResource("Resource_cs1vh")
-mountains_noise = SubResource("Resource_f7se2")
-mask_noise = SubResource("Resource_3gob8")
-ocean_depth_multiplier = 5.0
-ocean_floor_depth = 1.36
-ocean_floor_smoothing = 0.5
-mountain_blend = 1.16
+ContinentsNoise = SubResource("Resource_cs1vh")
+MaskNoise = SubResource("Resource_3gob8")
+MountainBlend = 1.16
+MountainsNoise = SubResource("Resource_f7se2")
+OceanFloorDepth = 1.36
+OceanDepthMultiplier = 5.0
+OceanFloorSmoothing = 0.5
 
 [sub_resource type="Resource" id="Resource_7g0qi"]
 resource_name = "Perturb Module"
@@ -56,9 +56,9 @@ script = ExtResource("2_qfkpy")
 
 [resource]
 script = ExtResource("3_u4qxu")
-randomize_ = false
-seed_ = 0
-height_map_compute = SubResource("Resource_0ol4x")
-perturb_vertices = true
-perturb_compute = SubResource("Resource_7g0qi")
-perturb_strength = 0.698
+HeightMapCompute = SubResource("Resource_0ol4x")
+PerturbCompute = SubResource("Resource_7g0qi")
+PerturbStrength = 0.698
+PerturbVertices = true
+Randomize = false
+Seed = 0

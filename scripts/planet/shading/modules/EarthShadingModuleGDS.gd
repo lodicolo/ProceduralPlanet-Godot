@@ -1,7 +1,7 @@
 @tool
-extends ShadingDataModule
+extends ShadingDataModuleGDS
 
-class_name EarthShadingModule
+class_name EarthShadingModuleGDS
 
 # Noise
 @export var detail_warp_noise : SimplexNoiseSettings :
@@ -39,7 +39,7 @@ func on_data_changed():
 	emit_signal("changed")
 
 func run(rng : RandomNumberGenerator, vertices : PackedVector3Array) -> Array:
-	
+
 	var shading_data := PackedFloat32Array()
 	shading_data.resize(vertices.size() * 4)
 
@@ -133,5 +133,5 @@ func run(rng : RandomNumberGenerator, vertices : PackedVector3Array) -> Array:
 		var _uv2 := Vector2(output[i * 4 + 2], output[i * 4 + 3])
 		uv1[i] = _uv1
 		uv2[i] = _uv2
-	
+
 	return [uv1, uv2]

@@ -1,5 +1,5 @@
 using Godot;
-using System;
+using static ProceduralPlanet.Utilities.PropertyHelper;
 
 public partial class Stars : Node3D
 {
@@ -13,29 +13,18 @@ public partial class Stars : Node3D
 	private int _seed;
 	private int _numStars;
 
-	private static void SetAndMarkDirty<T>(ref T variable, T value, ref bool dirty)
-	{
-		if (Equals(variable, value))
-		{
-			return;
-		}
-
-		variable = value;
-		dirty = true;
-	}
-
 	[Export]
 	public int Seed
 	{
 		get => _seed;
-		set => SetAndMarkDirty(ref _seed, value, ref _dirty);
+		set => SetIfChanged(ref _seed, value, ref _dirty);
 	}
 
 	[Export]
 	public int NumStars
 	{
 		get => _numStars;
-		set => SetAndMarkDirty(ref _numStars, value, ref _dirty);
+		set => SetIfChanged(ref _numStars, value, ref _dirty);
 	}
 
 	[Export]
@@ -53,7 +42,7 @@ public partial class Stars : Node3D
 	public ShaderMaterial? Material
 	{
 		get => _material;
-		set => SetAndMarkDirty(ref _material, value, ref _dirty);
+		set => SetIfChanged(ref _material, value, ref _dirty);
 	}
 
 	[Export] public GradientTexture2D? ColorSpectrum { get; set; }

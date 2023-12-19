@@ -9,8 +9,6 @@ namespace ProceduralPlanet.scripts.planet.settings;
 [Tool]
 public partial class ResolutionSettings : Resource
 {
-    private const int MaxAllowedResolution = 500;
-
     private int _collider = 100;
     private LODParameter[] _lodParameters = Array.Empty<LODParameter>();
 
@@ -66,6 +64,12 @@ public partial class ResolutionSettings : Resource
             EmitChanged();
             foreach (var lodParameter in _lodParameters)
             {
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                if (lodParameter is null)
+                {
+                    continue;
+                }
+
                 lodParameter.Changed += EmitChanged;
             }
         }

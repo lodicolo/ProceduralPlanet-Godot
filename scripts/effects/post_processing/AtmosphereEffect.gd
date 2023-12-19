@@ -20,7 +20,7 @@ func update_settings(
 		material.shader = shader
 		material.render_priority = -1
 
-	generator.body.shading.atmosphere_settings.SetProperties(
+	generator.body.Shading.AtmosphereSettings.SetProperties(
 		material, generator.body_scale())
 
 	var centre : Vector3 = generator.global_position

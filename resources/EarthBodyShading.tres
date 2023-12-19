@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="EarthShading" load_steps=15 format=3 uid="uid://bwamv2xe41otf"]
+[gd_resource type="Resource" script_class="EarthShading" load_steps=10 format=3 uid="uid://bwamv2xe41otf"]
 
 [ext_resource type="Resource" uid="uid://ctd28v4t7vm2l" path="res://resources/EarthAtmosphereSettings.tres" id="1_fitxj"]
 [ext_resource type="Script" path="res://scripts/planet/shading/colors/EarthColors.cs" id="1_q4po3"]
 [ext_resource type="Resource" uid="uid://c81covgcp35k5" path="res://resources/EarthOceanSettings.tres" id="2_l7bfv"]
-[ext_resource type="Script" path="res://scripts/planet/shading/EarthShading.gd" id="3_qx3so"]
-[ext_resource type="Script" path="res://scripts/planet/shading/modules/EarthShadingModule.gd" id="4_vatc7"]
+[ext_resource type="Script" path="res://scripts/planet/shading/EarthShading.cs" id="3_qx3so"]
+[ext_resource type="Script" path="res://scripts/planet/shading/modules/EarthShadingModule.cs" id="4_vatc7"]
 [ext_resource type="Material" uid="uid://g31nb23b03kn" path="res://materials/Earth.tres" id="5_conq4"]
-[ext_resource type="Script" path="res://scripts/planet/settings/noise_settings/SimplexNoiseSettings.gd" id="5_j403m"]
+[ext_resource type="Script" path="res://scripts/planet/settings/noise_settings/SimplexNoiseSettings.cs" id="5_j403m"]
 
 [sub_resource type="Resource" id="Resource_yynq6"]
 resource_name = "Customized Colors"
@@ -34,62 +34,59 @@ SteepLow = Color(0, 0, 0, 1)
 
 [sub_resource type="Resource" id="Resource_hwu13"]
 script = ExtResource("5_j403m")
-num_layers = 4
-lacunarity = 2.0
-persistence = 0.5
-scale = 1.5
-elevation = 1.0
-vertical_shift = 0.0
-offset = Vector3(0, 0, 0)
+Elevation = 1.0
+Lacunarity = 2.0
+Layers = 4
+Offset = Vector3(0, 0, 0)
+Persistence = 0.5
+Scale = 1.5
+VerticalShift = 0.0
 
 [sub_resource type="Resource" id="Resource_dgxup"]
 script = ExtResource("5_j403m")
-num_layers = 4
-lacunarity = 2.0
-persistence = 0.5
-scale = 2.96
-elevation = 9.41
-vertical_shift = 0.0
-offset = Vector3(0, 0, 0)
+Elevation = 9.41
+Lacunarity = 2.0
+Layers = 4
+Offset = Vector3(0, 0, 0)
+Persistence = 0.5
+Scale = 2.96
+VerticalShift = 0.0
 
 [sub_resource type="Resource" id="Resource_dgfso"]
 script = ExtResource("5_j403m")
-num_layers = 4
-lacunarity = 2.0
-persistence = 0.5
-scale = 1.77
-elevation = 1.0
-vertical_shift = 0.0
-offset = Vector3(0, 0, 0)
+Elevation = 1.0
+Lacunarity = 2.0
+Layers = 4
+Offset = Vector3(0, 0, 0)
+Persistence = 0.5
+Scale = 1.77
+VerticalShift = 0.0
 
 [sub_resource type="Resource" id="Resource_dgb8b"]
 script = ExtResource("5_j403m")
-num_layers = 5
-lacunarity = 4.13
-persistence = 0.65
-scale = 4.44
-elevation = 0.52
-vertical_shift = 0.0
-offset = Vector3(0.25, -0.09, 0)
+Elevation = 0.52
+Lacunarity = 4.13
+Layers = 5
+Offset = Vector3(0.25, -0.09, 0)
+Persistence = 0.65
+Scale = 4.44
+VerticalShift = 0.0
 
 [sub_resource type="Resource" id="Resource_q1mmt"]
 resource_name = "Shading Data Compute Shader"
 script = ExtResource("4_vatc7")
-detail_warp_noise = SubResource("Resource_dgxup")
-detail_noise = SubResource("Resource_hwu13")
-large_noise = SubResource("Resource_dgfso")
-small_noise = SubResource("Resource_dgb8b")
+DetailNoise = SubResource("Resource_hwu13")
+DetailWarpNoise = SubResource("Resource_dgxup")
+LargeNoise = SubResource("Resource_dgfso")
+SmallNoise = SubResource("Resource_dgb8b")
 
 [resource]
 script = ExtResource("3_qx3so")
-customized_colors = SubResource("Resource_yynq6")
-randomized_colors = SubResource("Resource_7xf64")
-randomize_ = false
-seed_ = 0
-terrain_material = ExtResource("5_conq4")
-has_ocean = true
-ocean_level = 1.0
-ocean_settings = ExtResource("2_l7bfv")
-has_atmosphere = true
-atmosphere_settings = ExtResource("1_fitxj")
-shading_data_compute = SubResource("Resource_q1mmt")
+AtmosphereSettings = ExtResource("1_fitxj")
+CustomizedColors = SubResource("Resource_yynq6")
+OceanSettings = ExtResource("2_l7bfv")
+Randomize = false
+RandomizedColors = SubResource("Resource_7xf64")
+Seed = 0
+ShadingDataCompute = SubResource("Resource_q1mmt")
+TerrainMaterial = ExtResource("5_conq4")

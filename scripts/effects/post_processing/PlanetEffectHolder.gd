@@ -13,17 +13,15 @@ func _init(
 	light : Node
 ):
 	generator = _generator
-	if (
-		generator.body.shading.has_ocean
-		and generator.body.shading.ocean_settings != null
+	if (generator.body.Shading.OceanSettings != null and
+		generator.body.Shading.OceanSettings.Enabled
 	):
 		ocean_effect = OceanEffect.new(light)
-	if (
-		generator.body.shading.has_atmosphere
-		and generator.body.shading.atmosphere_settings != null
+	if (generator.body.Shading.AtmosphereSettings != null and
+		generator.body.Shading.AtmosphereSettings.Enabled
 	):
 		atmosphere_effect = AtmosphereEffect.new(light)
 
 func dist_from_surface(view_pos : Vector3) -> float:
 		return max(0.0, (generator.global_position - view_pos).length() - generator.body_scale())
-		
+

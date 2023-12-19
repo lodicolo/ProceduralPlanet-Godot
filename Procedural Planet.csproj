@@ -1,12 +1,13 @@
 <Project Sdk="Godot.NET.Sdk/4.2.0">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>ProceduralPlanet</RootNamespace>
     <LangVersion>11</LangVersion>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="scripts\camera\free_look_camera.gd" />
@@ -43,5 +44,14 @@
     <Content Include="scripts\stars\Stars.gd" />
     <Content Include="scripts\sun\DirectionalLight3d.gd" />
     <Content Include="scripts\ui\slider_test.gd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Godot.Extensions\**" />
+    <EmbeddedResource Remove="Godot.Extensions\**" />
+    <Compile Remove="Godot.Extensions.Tests\**" />
+    <EmbeddedResource Remove="Godot.Extensions.Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Godot.Extensions\Godot.Extensions.csproj" />
   </ItemGroup>
 </Project>

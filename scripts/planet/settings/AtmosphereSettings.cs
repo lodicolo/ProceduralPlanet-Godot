@@ -190,6 +190,7 @@ public partial class AtmosphereSettings : SettingsResource
         base.Dispose(disposing);
 
         (var renderingDevice, _renderingDevice) = (_renderingDevice, default);
+        renderingDevice?.Free();
         renderingDevice?.Dispose();
     }
 

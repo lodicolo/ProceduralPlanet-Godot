@@ -4,6 +4,7 @@ using ProceduralPlanet.Utilities;
 
 namespace ProceduralPlanet.scripts.planet.settings;
 
+[Tool]
 public partial class LODParameter : Resource
 {
     internal const int MaxAllowedResolution = 500;

@@ -47,6 +47,9 @@ class_name CelestialBodyShading
 		emit_signal("changed")
 		atmosphere_settings.changed.connect(on_data_changed)
 
+var EarthShadingModule = load("res://scripts/planet/shading/modules/EarthShadingModule.cs")
+var ShadingDataModule = load("res://scripts/planet/shading/modules/ShadingDataModule.cs")
+
 @export var shading_data_compute : Resource :
 	set(val):
 		shading_data_compute = val
@@ -72,7 +75,7 @@ func set_ocean_properties(material : Material):
 func on_data_changed():
 	emit_signal("changed")
 
-func generate_shading_data(vertex_array : PackedVector3Array) -> Array:
+func generate_shading_data(vertex_array : PackedVector3Array):
 	rng.set_seed(seed_)
-	return shading_data_compute.run(rng, vertex_array)
+	return shading_data_compute.Run(rng, vertex_array)
 
