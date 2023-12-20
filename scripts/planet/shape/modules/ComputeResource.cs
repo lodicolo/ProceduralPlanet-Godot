@@ -10,13 +10,35 @@ public abstract partial class ComputeResource : Resource
 {
     private RenderingDevice? _renderingDevice;
 
+    protected string ResourceId => $"{GetType().Name}:{NativeInstance}";
+
+    protected string SafeResourceName
+    {
+        get
+        {
+            try
+            {
+                return NativeInstance == default ? "DISPOSED" : ResourceName;
+            }
+            catch
+            {
+                return "DISPOSED_RACE_CONDITION";
+            }
+        }
+    }
+
+    protected string FullResourceId => $"{ResourceId} \"{SafeResourceName}\"";
+
     protected RenderingDevice RenderingDevice
     {
         get
         {
-            if (_renderingDevice == null)
+            if (_renderingDevice == default)
             {
-                _renderingDevice = RenderingServer.CreateLocalRenderingDevice();
+                var renderingDevice = RenderingServer.CreateLocalRenderingDevice();
+                var id = renderingDevice.NativeInstance;
+                Debug.WriteLine($"{FullResourceId} create local rendering device {id}");
+                _renderingDevice = renderingDevice;
             }
 
             return _renderingDevice;
@@ -34,15 +56,19 @@ public abstract partial class ComputeResource : Resource
 
     protected override void Dispose(bool disposing)
     {
+        Debug.WriteLine($"{FullResourceId} disposing ({disposing})");
+
         if (disposing)
         {
             (var renderingDevice, _renderingDevice) = (_renderingDevice, default);
-            if (renderingDevice is { NativeInstance: not default(nint) })
+            if (renderingDevice is { NativeInstance: var id } && id != default)
             {
-                Debug.WriteLine(
-                    $"Freeing rendering device {renderingDevice.NativeInstance} for {GetType().Name}:{NativeInstance} \"{ResourceName}\""
-                );
+                Debug.WriteLine($"{FullResourceId} free local rendering device {id}");
                 renderingDevice.Free();
+            }
+            else
+            {
+                Debug.WriteLine($"{FullResourceId} local rendering device handle no longer valid");
             }
 
             renderingDevice?.Dispose();
