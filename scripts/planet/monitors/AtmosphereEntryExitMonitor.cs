@@ -113,10 +113,9 @@ public partial class AtmosphereEntryExitMonitor : Node3D
 			Debug.WriteLine("Invalid outer atmosphere collider shape");
 			return;
 		}
+
 		var overlappingAreasInner = atmosphereInner.GetOverlappingAreas();
 		var overlappingAreasOuter = atmosphereOuter.GetOverlappingAreas();
-
-		Console.WriteLine($"prev overlap {_previousIntersectingAreas.Count} / oai {overlappingAreasInner.Count} / oao {overlappingAreasOuter.Count}");
 
 		if (overlappingAreasInner.Count < 1 && overlappingAreasOuter.Count < 1 && _previousIntersectingAreas.Count < 1)
 		{
@@ -139,7 +138,7 @@ public partial class AtmosphereEntryExitMonitor : Node3D
 				shakeEffect.IsShaking = true;
 			}
 
-			if (TryGetAudioStreamPlayer(overlappingAreaOuter, out var audioStreamPlayer3D))
+			if (TryGetAudioStreamPlayer(overlappingAreaOuter, out var audioStreamPlayer3D) && !audioStreamPlayer3D.Playing)
 			{
 				audioStreamPlayer3D.Playing = true;
 			}
@@ -154,7 +153,7 @@ public partial class AtmosphereEntryExitMonitor : Node3D
 					shakeEffect.IsShaking = false;
 				}
 
-				if (TryGetAudioStreamPlayer(previousIntersectingArea, out var audioStreamPlayer3D))
+				if (TryGetAudioStreamPlayer(previousIntersectingArea, out var audioStreamPlayer3D) && audioStreamPlayer3D.Playing)
 				{
 					audioStreamPlayer3D.Playing = false;
 				}
