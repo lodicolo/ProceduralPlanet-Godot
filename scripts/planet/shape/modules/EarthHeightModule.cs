@@ -150,7 +150,7 @@ public partial class EarthHeightModule : HeightModule
                 var noiseParamsBytes = noiseParams.ToByteArray();
 
                 var verticesBytes = vertices.ToByteArray();
-                AutoFreeRid verticesBufferId = new(
+                using AutoFreeRid verticesBufferId = new(
                     renderingDevice,
                     renderingDevice.StorageBufferCreate((uint)verticesBytes.Length, verticesBytes)
                 );
@@ -161,7 +161,7 @@ public partial class EarthHeightModule : HeightModule
                 };
                 uniformVertices.AddId(verticesBufferId);
 
-                AutoFreeRid heightsBufferId = new(
+                using AutoFreeRid heightsBufferId = new(
                     renderingDevice,
                     renderingDevice.StorageBufferCreate((uint)heightsBytes.Length, heightsBytes)
                 );
@@ -172,7 +172,7 @@ public partial class EarthHeightModule : HeightModule
                 };
                 uniformHeights.AddId(heightsBufferId);
 
-                AutoFreeRid shaderParamsBufferId = new(
+                using AutoFreeRid shaderParamsBufferId = new(
                     renderingDevice,
                     renderingDevice.StorageBufferCreate((uint)shaderParamsBytes.Length, shaderParamsBytes)
                 );
@@ -183,7 +183,7 @@ public partial class EarthHeightModule : HeightModule
                 };
                 uniformShaderParams.AddId(shaderParamsBufferId);
 
-                AutoFreeRid noiseParamsBufferId = new(
+                using AutoFreeRid noiseParamsBufferId = new(
                     renderingDevice,
                     renderingDevice.StorageBufferCreate((uint)noiseParamsBytes.Length, noiseParamsBytes)
                 );
@@ -194,7 +194,7 @@ public partial class EarthHeightModule : HeightModule
                 };
                 uniformNoiseParams.AddId(noiseParamsBufferId);
 
-                AutoFreeRid uniformSetId = new(
+                using AutoFreeRid uniformSetId = new(
                     renderingDevice,
                     renderingDevice.UniformSetCreate(
                         new Array<RDUniform>(

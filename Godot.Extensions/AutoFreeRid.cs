@@ -10,7 +10,12 @@ public record struct AutoFreeRid(RenderingDevice RenderingDevice, Rid Rid) : IDi
     {
         if (Rid.IsValid)
         {
+            // Console.WriteLine($"Freeing {Rid}");
             RenderingDevice.FreeRid(Rid);
+        }
+        else
+        {
+            Console.WriteLine($"Skipping free of {Rid} because it is no longer valid");
         }
 
         Rid = default;

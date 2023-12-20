@@ -17,7 +17,7 @@ public partial class PerturbPointsModule : PerturbModule
                 var shaderParamsBytes = shaderParams.ToByteArray();
 
                 var verticesBytes = vertices.ToByteArray();
-                AutoFreeRid verticesBufferId = new(
+                using AutoFreeRid verticesBufferId = new(
                     renderingDevice,
                     renderingDevice.StorageBufferCreate((uint)verticesBytes.Length, verticesBytes)
                 );
@@ -29,7 +29,7 @@ public partial class PerturbPointsModule : PerturbModule
                 };
                 uniformVertices.AddId(verticesBufferId);
 
-                AutoFreeRid shaderParamsBufferId = new(
+                using AutoFreeRid shaderParamsBufferId = new(
                     renderingDevice,
                     renderingDevice.StorageBufferCreate((uint)shaderParamsBytes.Length, shaderParamsBytes)
                 );
@@ -41,7 +41,7 @@ public partial class PerturbPointsModule : PerturbModule
                 };
                 uniformShaderParams.AddId(shaderParamsBufferId);
 
-                AutoFreeRid uniformSetId = new(
+                using AutoFreeRid uniformSetId = new(
                     renderingDevice,
                     renderingDevice.UniformSetCreate(
                         new Array<RDUniform>(new[] { uniformVertices, uniformShaderParams }),
