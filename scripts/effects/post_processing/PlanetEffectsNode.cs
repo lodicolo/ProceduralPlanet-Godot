@@ -52,6 +52,19 @@ public partial class PlanetEffectsNode : Node
 
 	[Export(PropertyHint.NodePathValidTypes, "Viewport")] public NodePath? SourceViewportPath { get; set; }
 
+	protected override void Dispose(bool disposing)
+	{
+		base.Dispose(disposing);
+
+		if (!disposing)
+		{
+			return;
+		}
+
+		(var effectsHolder, _effectsHolder) = (_effectsHolder, default);
+		effectsHolder?.QueueFree();
+	}
+
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
