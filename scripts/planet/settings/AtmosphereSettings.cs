@@ -3,12 +3,13 @@ using System.Diagnostics;
 using Godot;
 using Godot.Collections;
 using Godot.Extensions;
+using ProceduralPlanet.scripts.planet.shape.modules;
 using static Godot.Extensions.PropertyHelper;
 
 namespace ProceduralPlanet.scripts.planet.settings;
 
 [Tool]
-public partial class AtmosphereSettings : SettingsResource
+public partial class AtmosphereSettings : ComputeResource
 {
     private bool _dirty = true;
 
@@ -181,18 +182,9 @@ public partial class AtmosphereSettings : SettingsResource
         }
     }
 
+    [Export] public bool Enabled { get; set; } = true;
+
     private readonly RandomNumberGenerator _rng = new();
-
-    private RenderingDevice? _renderingDevice;
-
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-
-        (var renderingDevice, _renderingDevice) = (_renderingDevice, default);
-        renderingDevice?.Free();
-        renderingDevice?.Dispose();
-    }
 
     public void SetProperties(ShaderMaterial? material, float bodyRadius)
     {
@@ -203,11 +195,6 @@ public partial class AtmosphereSettings : SettingsResource
         material?.SetShaderParameter("AtmosphereRadius", atmosphereRadius);
         material?.SetShaderParameter("PlanetRadius", bodyRadius);
         material?.SetShaderParameter("DensityFalloff", _densityFalloff);
-
-        var scaw = Vector3.One * 400 / _wavelengths;
-        scaw.X = MathF.Pow(scaw.X, 4);
-        scaw.Y = MathF.Pow(scaw.Y, 4);
-        scaw.Z = MathF.Pow(scaw.Z, 4);
 
         var scatteringCoefficients = Vector3.One * 400 / _wavelengths;
         scatteringCoefficients *= scatteringCoefficients; // v^2
@@ -242,7 +229,7 @@ public partial class AtmosphereSettings : SettingsResource
         {
             Debug.WriteLine("Computing optical depth texture...");
 
-            var renderingDevice = _renderingDevice ??= RenderingServer.CreateLocalRenderingDevice();
+            var renderingDevice = RenderingDevice;
 
             using var shaderFile = GD.Load<RDShaderFile>("res://materials/shaders/compute/AtmosphereTexture.glsl");
             using var shaderSpirV = shaderFile.GetSpirV();

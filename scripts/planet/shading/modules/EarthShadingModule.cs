@@ -14,24 +14,14 @@ public partial class EarthShadingModule : ShadingDataModule
     private readonly SimplexNoiseSettings _warp2Noise = new();
     private readonly SimplexNoiseSettings _noise2Noise = new();
 
-    private RenderingDevice? _renderingDevice;
-
     [Export] public SimplexNoiseSettings? DetailNoise { get; set; }
     [Export] public SimplexNoiseSettings? DetailWarpNoise { get; set; }
     [Export] public SimplexNoiseSettings? LargeNoise { get; set; }
     [Export] public SimplexNoiseSettings? SmallNoise { get; set; }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-
-        (var renderingDevice, _renderingDevice) = (_renderingDevice, default);
-        renderingDevice?.Dispose();
-    }
-
     public override UVPairs Run(RandomNumberGenerator rng, Vector3[] vertices)
     {
-        var renderingDevice = _renderingDevice ??= RenderingServer.CreateLocalRenderingDevice();
+        var renderingDevice = RenderingDevice;
 
         using var shaderFile = GD.Load<RDShaderFile>("res://materials/shaders/compute/EarthShading.glsl");
         using var shaderSpirV = shaderFile.GetSpirV();
