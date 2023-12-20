@@ -3,9 +3,12 @@ using Godot;
 
 namespace ProceduralPlanet.scripts.camera;
 
+[Tool]
 public partial class FreeLookCamera3D : Camera3D
 {
-	[Export(PropertyHint.Range, "0,10,0.01")] public float Sensitivity { get; set; } = 3;
+	private float _speed;
+	private Vector3 _inputDirection;
+	private bool _sprint;
 
 	[Export(PropertyHint.Range, "0,1000,0.1")]
 	public float DefaultSpeed { get; set; } = 100;
@@ -17,9 +20,7 @@ public partial class FreeLookCamera3D : Camera3D
 
 	[Export] public float MinSpeed { get; set; } = 0.2f;
 
-	private float _speed;
-	private Vector3 _inputDirection;
-	private bool _sprint;
+	[Export(PropertyHint.Range, "0,10,0.01")] public float Sensitivity { get; set; } = 3;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -83,7 +84,5 @@ public partial class FreeLookCamera3D : Camera3D
 			Input.GetAxis("move_forward", "move_backward")
 		);
 		_sprint = Input.IsActionPressed("move_fast");
-
-		Console.WriteLine($"{Name} [{GetType().Name}] {nameof(_Input)}: {inputEvent.GetType().Name}");
 	}
 }

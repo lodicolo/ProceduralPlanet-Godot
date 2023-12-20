@@ -12,15 +12,31 @@ namespace ProceduralPlanet.scripts.planet;
 [Tool]
 public partial class CelestialBodyGenerator : StaticBody3D
 {
+	private readonly List<ArrayMesh> _lodMeshes = new();
+	private readonly Dictionary<int, PlanetSphereMesh> _sphereGenerators = new();
+
 	private bool _dirty;
 
+
+	private int _activeLODLevelIndex = -1;
+	private CelestialBodySettings? _body;
+	private Camera3D? _camera;
+	private NodePath? _cameraPath;
+	private Mesh? _collisionMesh;
+	private CollisionShape3D? _collisionShape3D;
+	private bool _debugDoubleUpdate = true;
+	private int _debugNumUpdates;
+	private Vector2 _heightMinMax;
 	private bool _isOcean;
+	private MeshInstance3D? _meshInstance3D;
+	private ArrayMesh? _previewMesh;
 	private CelestialBodyPreviewMode _previewMode = CelestialBodyPreviewMode.LOD2;
 	private ResolutionSettings? _resolutionSettings;
-	private CollisionShape3D? _collisionShape3D;
-	private MeshInstance3D? _meshInstance3D;
+	private bool _shadingNoiseSettingsUpdated = true;
+	private bool _shapeSettingsUpdated = true;
+	private Vector3[]? _vertexBuffer;
 
-	public int ActiveLODLevelIndex
+	private int ActiveLODLevelIndex
 	{
 		get => _activeLODLevelIndex;
 		set
@@ -37,8 +53,6 @@ public partial class CelestialBodyGenerator : StaticBody3D
 			}
 		}
 	}
-
-	private CelestialBodySettings? _body;
 
 	[Export]
 	public CelestialBodySettings? Body
@@ -69,9 +83,6 @@ public partial class CelestialBodyGenerator : StaticBody3D
 	}
 
 	public float BodyScale => Transform.Basis.X.Length();
-
-	private Camera3D? _camera;
-	private NodePath? _cameraPath;
 
 	public Camera3D? Camera
 	{
@@ -198,21 +209,6 @@ public partial class CelestialBodyGenerator : StaticBody3D
 					direction.Length();
 		return normalizedDirection * height * BodyScale;
 	}
-
-	private readonly List<ArrayMesh> _lodMeshes = new();
-	private readonly Dictionary<int, PlanetSphereMesh> _sphereGenerators = new();
-
-	private bool _debugDoubleUpdate = true;
-	private int _debugNumUpdates;
-
-	private ArrayMesh? _previewMesh;
-	private Mesh? _collisionMesh;
-
-	private Vector3[]? _vertexBuffer;
-	private bool _shadingNoiseSettingsUpdated = true;
-	private bool _shapeSettingsUpdated = true;
-	private Vector2 _heightMinMax;
-	private int _activeLODLevelIndex = -1;
 
 	private void BodySettingsOnShadingChanged(Resource? resource)
 	{
