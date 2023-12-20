@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Godot;
 
-namespace ProceduralPlanet.scripts.effects;
+namespace ProceduralPlanet.scripts.effects.post_processing;
 
 [Tool]
 public partial class OceanEffectNode : PostProcessingEffectNode
@@ -10,16 +10,16 @@ public partial class OceanEffectNode : PostProcessingEffectNode
     {
     }
 
-    protected override void OnUpdateSettings(Viewport source_viewport, CelestialBodyGenerator generator, Shader shader)
+    protected override void OnUpdateSettings(Viewport sourceViewport, planet.CelestialBodyGenerator generator, Shader shader)
     {
-        base.OnUpdateSettings(source_viewport, generator, shader);
+        base.OnUpdateSettings(sourceViewport, generator, shader);
 
         if (ShaderMaterial is not { } shaderMaterial)
         {
             return;
         }
 
-        generator.BodySettings?.Shading?.AtmosphereSettings?.SetProperties(shaderMaterial, generator.BodyScale);
+        generator.Body?.Shading?.AtmosphereSettings?.SetProperties(shaderMaterial, generator.BodyScale);
 
         var center = generator.GlobalPosition;
         shaderMaterial.SetShaderParameter("OceanCentre", center);
@@ -27,12 +27,12 @@ public partial class OceanEffectNode : PostProcessingEffectNode
         var oceanRadius = generator.OceanRadius;
         shaderMaterial.SetShaderParameter("OceanRadius", oceanRadius);
 
-        var sourceTexture = source_viewport.GetTexture();
+        var sourceTexture = sourceViewport.GetTexture();
         shaderMaterial.SetShaderParameter("MainTex", sourceTexture);
 
         shaderMaterial.SetShaderParameter("PlanetScale", generator.BodyScale);
 
-        var sourceSize = source_viewport.GetVisibleRect().Size;
+        var sourceSize = sourceViewport.GetVisibleRect().Size;
         shaderMaterial.SetShaderParameter("ScreenWidth", sourceSize.X);
         shaderMaterial.SetShaderParameter("ScreenHeight", sourceSize.Y);
 
@@ -47,6 +47,6 @@ public partial class OceanEffectNode : PostProcessingEffectNode
         }
         shaderMaterial.SetShaderParameter("DirToSun", dirToSun);
 
-        generator.BodySettings?.Shading?.SetOceanProperties(shaderMaterial);
+        generator.Body?.Shading?.SetOceanProperties(shaderMaterial);
     }
 }

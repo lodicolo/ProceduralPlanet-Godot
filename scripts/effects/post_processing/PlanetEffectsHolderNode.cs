@@ -7,18 +7,18 @@ namespace ProceduralPlanet.scripts.effects.post_processing;
 public partial class PlanetEffectsHolderNode : Node
 {
     public PlanetEffectsHolderNode(
-        CelestialBodyGenerator generator,
+        planet.CelestialBodyGenerator generator,
         Node3D? light
     )
     {
         Generator = generator;
 
-        if (Generator.BodySettings?.Shading?.IsAtmosphereEnabled ?? false)
+        if (Generator.Body?.Shading?.IsAtmosphereEnabled ?? false)
         {
             AtmosphereEffect = new AtmosphereEffectNode(light);
         }
 
-        if (Generator.BodySettings?.Shading?.IsOceanEnabled ?? false)
+        if (Generator.Body?.Shading?.IsOceanEnabled ?? false)
         {
             OceanEffect = new OceanEffectNode(light);
         }
@@ -26,7 +26,7 @@ public partial class PlanetEffectsHolderNode : Node
     
     public AtmosphereEffectNode? AtmosphereEffect { get; }
 
-    public CelestialBodyGenerator Generator { get; }
+    public planet.CelestialBodyGenerator Generator { get; }
     
     public OceanEffectNode? OceanEffect { get; }
 

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EarthShading" load_steps=10 format=3 uid="uid://bwamv2xe41otf"]
+[gd_resource type="Resource" load_steps=15 format=3 uid="uid://bwamv2xe41otf"]
 
 [ext_resource type="Resource" uid="uid://ctd28v4t7vm2l" path="res://resources/EarthAtmosphereSettings.tres" id="1_fitxj"]
 [ext_resource type="Script" path="res://scripts/planet/shading/colors/EarthColors.cs" id="1_q4po3"]
@@ -82,11 +82,11 @@ SmallNoise = SubResource("Resource_dgb8b")
 
 [resource]
 script = ExtResource("3_qx3so")
-AtmosphereSettings = ExtResource("1_fitxj")
 CustomizedColors = SubResource("Resource_yynq6")
-OceanSettings = ExtResource("2_l7bfv")
-Randomize = false
 RandomizedColors = SubResource("Resource_7xf64")
+AtmosphereSettings = ExtResource("1_fitxj")
+OceanSettings = ExtResource("2_l7bfv")
+ShadingDataModule = SubResource("Resource_q1mmt")
+Randomize = false
 Seed = 0
-ShadingDataCompute = SubResource("Resource_q1mmt")
 TerrainMaterial = ExtResource("5_conq4")

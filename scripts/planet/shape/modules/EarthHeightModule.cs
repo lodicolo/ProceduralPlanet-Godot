@@ -3,8 +3,8 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using ProceduralPlanet.scripts.planet.settings.noise_settings;
-using ProceduralPlanet.Utilities;
-using static ProceduralPlanet.Utilities.PropertyHelper;
+using Godot.Extensions;
+using static Godot.Extensions.PropertyHelper;
 using Array = System.Array;
 
 namespace ProceduralPlanet.scripts.planet.shape.modules;
@@ -216,7 +216,7 @@ public partial class EarthHeightModule : HeightModule
                 renderingDevice.Submit();
                 renderingDevice.Sync();
 
-                var outputBytes = renderingDevice.BufferGetData(verticesBufferId);
+                var outputBytes = renderingDevice.BufferGetData(heightsBufferId);
                 var output = outputBytes.ToTypedArray<float>();
 
                 return output;

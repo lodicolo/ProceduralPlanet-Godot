@@ -1,7 +1,7 @@
 using Godot;
 using ProceduralPlanet.scripts.planet.settings;
 using ProceduralPlanet.scripts.planet.shading.modules;
-using ProceduralPlanet.Utilities;
+using Godot.Extensions;
 
 namespace ProceduralPlanet.scripts.planet.shading;
 

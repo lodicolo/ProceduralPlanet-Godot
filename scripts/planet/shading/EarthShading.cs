@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using Godot;
 using ProceduralPlanet.scripts.planet.shading.colors;
-using ProceduralPlanet.Utilities;
+using Godot.Extensions;
 
 namespace ProceduralPlanet.scripts.planet.shading;
 

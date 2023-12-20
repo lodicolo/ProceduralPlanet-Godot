@@ -1,8 +1,7 @@
 using System;
-using System.Linq;
 using Godot;
 
-using static ProceduralPlanet.Utilities.PropertyHelper;
+using static Godot.Extensions.PropertyHelper;
 
 namespace ProceduralPlanet.scripts.planet.settings;
 

@@ -1,6 +1,6 @@
 using System;
 using Godot;
-using ProceduralPlanet.Utilities;
+using Godot.Extensions;
 
 namespace ProceduralPlanet.scripts.planet.settings;
 

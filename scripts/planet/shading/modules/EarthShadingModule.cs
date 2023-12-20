@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 using ProceduralPlanet.scripts.planet.settings.noise_settings;
-using ProceduralPlanet.Utilities;
+using Godot.Extensions;
 using Array = System.Array;
 
 namespace ProceduralPlanet.scripts.planet.shading.modules;
@@ -11,15 +11,15 @@ namespace ProceduralPlanet.scripts.planet.shading.modules;
 [Tool]
 public partial class EarthShadingModule : ShadingDataModule
 {
-    private SimplexNoiseSettings? _detailNoise;
-    private SimplexNoiseSettings? _detailWarpNoise;
-    private SimplexNoiseSettings? _largeNoise;
-    private SimplexNoiseSettings? _smallNoise;
-
-    private SimplexNoiseSettings _warp2Noise = new();
-    private SimplexNoiseSettings _noise2Noise = new();
+    private readonly SimplexNoiseSettings _warp2Noise = new();
+    private readonly SimplexNoiseSettings _noise2Noise = new();
 
     private RenderingDevice? _renderingDevice;
+
+    [Export] public SimplexNoiseSettings? DetailNoise { get; set; }
+    [Export] public SimplexNoiseSettings? DetailWarpNoise { get; set; }
+    [Export] public SimplexNoiseSettings? LargeNoise { get; set; }
+    [Export] public SimplexNoiseSettings? SmallNoise { get; set; }
 
     protected override void Dispose(bool disposing)
     {
@@ -47,10 +47,10 @@ public partial class EarthShadingModule : ShadingDataModule
         var shaderParamsBuffer = shaderParams.ToByteArray();
 
         var noiseParams = Enumerable.Empty<float>()
-            .Concat(_detailWarpNoise?.GetParams(rng) ?? Array.Empty<float>())
-            .Concat(_detailNoise?.GetParams(rng) ?? Array.Empty<float>())
-            .Concat(_largeNoise?.GetParams(rng) ?? Array.Empty<float>())
-            .Concat(_smallNoise?.GetParams(rng) ?? Array.Empty<float>())
+            .Concat(DetailWarpNoise?.GetParams(rng) ?? Array.Empty<float>())
+            .Concat(DetailNoise?.GetParams(rng) ?? Array.Empty<float>())
+            .Concat(LargeNoise?.GetParams(rng) ?? Array.Empty<float>())
+            .Concat(SmallNoise?.GetParams(rng) ?? Array.Empty<float>())
             .Concat(_warp2Noise.GetParams(rng))
             .Concat(_noise2Noise.GetParams(rng))
             .ToArray();

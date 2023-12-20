@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://ctdg6los4isfb"]
 
-[ext_resource type="Script" path="res://scripts/planet/CelestialBodyGenerator.gd" id="1_qheu2"]
+[ext_resource type="Script" path="res://scripts/planet/CelestialBodyGenerator.cs" id="1_qheu2"]
 [ext_resource type="Script" path="res://scripts/planet/settings/ResolutionSettings.cs" id="2_dcqbo"]
 [ext_resource type="Script" path="res://scripts/planet/settings/LODParameter.cs" id="2_rux8e"]
 [ext_resource type="Script" path="res://scripts/planet/CelestialBodySettings.cs" id="3_hro1c"]
@@ -52,7 +52,7 @@ _surfaces = [{
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 script = ExtResource("1_qheu2")
 resolution_settings = SubResource("Resource_631tr")
-body = SubResource("Resource_iid5i")
+Body = SubResource("Resource_iid5i")
 
 [node name="MeshInstance3d" type="MeshInstance3D" parent="Planet"]
 mesh = SubResource("ArrayMesh_ng0p7")

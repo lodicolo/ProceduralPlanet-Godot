@@ -1,7 +1,7 @@
 using System;
 using Godot;
-using ProceduralPlanet.Utilities;
-using static ProceduralPlanet.Utilities.PropertyHelper;
+using Godot.Extensions;
+using static Godot.Extensions.PropertyHelper;
 
 namespace ProceduralPlanet.scripts.planet.settings;
 

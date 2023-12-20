@@ -1,7 +1,7 @@
 using System;
 using Godot;
 using Godot.Collections;
-using ProceduralPlanet.Utilities;
+using Godot.Extensions;
 
 namespace ProceduralPlanet.scripts.planet.shape.modules;
 

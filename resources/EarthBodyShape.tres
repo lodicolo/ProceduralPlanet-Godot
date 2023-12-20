@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CelestialBodyShape" load_steps=11 format=3 uid="uid://c7kr5gdkvgcb"]
+[gd_resource type="Resource" load_steps=11 format=3 uid="uid://c7kr5gdkvgcb"]
 
 [ext_resource type="Script" path="res://scripts/planet/settings/noise_settings/SimplexNoiseSettings.cs" id="1_5xb5q"]
 [ext_resource type="Script" path="res://scripts/planet/shape/modules/EarthHeightModule.cs" id="1_foy8k"]
@@ -43,12 +43,12 @@ VerticalShift = 0.09
 resource_name = "Height Module"
 script = ExtResource("1_foy8k")
 ContinentsNoise = SubResource("Resource_cs1vh")
+OceanDepthMultiplier = 5.0
+OceanFloorDepth = 1.36
+OceanFloorSmoothing = 0.5
 MaskNoise = SubResource("Resource_3gob8")
 MountainBlend = 1.16
 MountainsNoise = SubResource("Resource_f7se2")
-OceanFloorDepth = 1.36
-OceanDepthMultiplier = 5.0
-OceanFloorSmoothing = 0.5
 
 [sub_resource type="Resource" id="Resource_7g0qi"]
 resource_name = "Perturb Module"

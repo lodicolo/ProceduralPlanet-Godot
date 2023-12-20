@@ -247,7 +247,6 @@ func generate_terrain_mesh(_mesh : ArrayMesh, resolution : int) -> Vector2:
 
 	# Shading noise data
 	if body.Shading != null:
-		body.Shading.initialize(body.Shape)
 		var shading_data = body.Shading.GenerateShadingData(vertices)
 		var uv1 : PackedVector2Array = shading_data.A
 		var uv2 : PackedVector2Array = shading_data.B

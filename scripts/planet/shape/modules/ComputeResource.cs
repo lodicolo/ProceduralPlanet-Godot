@@ -1,6 +1,6 @@
 using System;
 using Godot;
-using ProceduralPlanet.Utilities;
+using Godot.Extensions;
 
 namespace ProceduralPlanet.scripts.planet.shape.modules;
 
@@ -25,7 +25,11 @@ public abstract partial class ComputeResource : Resource
         base.Dispose(disposing);
 
         (var renderingDevice, _renderingDevice) = (_renderingDevice, default);
-        renderingDevice?.Free();
-        renderingDevice?.Dispose();
+
+        if (renderingDevice is not null and not { NativeInstance: default(nint) })
+        {
+            renderingDevice.Free();
+            renderingDevice.Dispose();
+        }
     }
 }
