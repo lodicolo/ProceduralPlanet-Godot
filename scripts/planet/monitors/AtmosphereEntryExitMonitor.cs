@@ -116,6 +116,8 @@ public partial class AtmosphereEntryExitMonitor : Node3D
 		var overlappingAreasInner = atmosphereInner.GetOverlappingAreas();
 		var overlappingAreasOuter = atmosphereOuter.GetOverlappingAreas();
 
+		Console.WriteLine($"prev overlap {_previousIntersectingAreas.Count} / oai {overlappingAreasInner.Count} / oao {overlappingAreasOuter.Count}");
+
 		if (overlappingAreasInner.Count < 1 && overlappingAreasOuter.Count < 1 && _previousIntersectingAreas.Count < 1)
 		{
 			return;

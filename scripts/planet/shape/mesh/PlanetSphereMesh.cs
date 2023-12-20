@@ -67,7 +67,7 @@ public partial class PlanetSphereMesh : Resource
         }
 
         var edgeTriplets = EdgeTriplets;
-        for (var tripletIndex = 0; tripletIndex < edgeTriplets.Length; ++tripletIndex)
+        for (var tripletIndex = 0; tripletIndex < edgeTriplets.Length; tripletIndex += 3)
         {
             var faceIndex = tripletIndex / 3;
             var reverse = faceIndex > 3;
