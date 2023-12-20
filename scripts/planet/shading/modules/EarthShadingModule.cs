@@ -26,11 +26,7 @@ public partial class EarthShadingModule : ShadingDataModule
         base.Dispose(disposing);
 
         (var renderingDevice, _renderingDevice) = (_renderingDevice, default);
-        if (renderingDevice is { NativeInstance: not default(nint) })
-        {
-            renderingDevice.Free();
-            renderingDevice.Dispose();
-        }
+        renderingDevice?.Dispose();
     }
 
     public override UVPairs Run(RandomNumberGenerator rng, Vector3[] vertices)

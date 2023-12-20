@@ -25,11 +25,6 @@ public abstract partial class ComputeResource : Resource
         base.Dispose(disposing);
 
         (var renderingDevice, _renderingDevice) = (_renderingDevice, default);
-
-        if (renderingDevice is not null and not { NativeInstance: default(nint) })
-        {
-            renderingDevice.Free();
-            renderingDevice.Dispose();
-        }
+        renderingDevice?.Dispose();
     }
 }

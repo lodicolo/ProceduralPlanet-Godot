@@ -39,10 +39,7 @@ public partial class Stars : Node3D
 			}
 
 			(var generator, _generator) = (_generator, default);
-			if (generator is { NativeInstance: not default(nint) })
-			{
-				generator.Dispose();
-			}
+			generator?.Dispose();
 		}
 	}
 
@@ -86,10 +83,7 @@ public partial class Stars : Node3D
 			}
 
 			(var sourceViewport, _sourceViewport) = (_sourceViewport, default);
-			if (sourceViewport is { NativeInstance: not default(nint) })
-			{
-				sourceViewport.Dispose();
-			}
+			sourceViewport?.Dispose();
 		}
 	}
 
