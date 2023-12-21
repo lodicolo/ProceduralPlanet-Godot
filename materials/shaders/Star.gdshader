@@ -3,6 +3,18 @@ render_mode unshaded, cull_front, depth_draw_never, depth_prepass_alpha;
 
 #include "res://materials/shaders/include/Math.gdshaderinc"
 
+const vec2 VERTICES[3] = vec2[3] (
+    vec2(-1.7321, -1.0),
+    vec2(0.0, 2.0),
+    vec2(1.7321, -1.0)
+);
+
+//const vec2 VERTICES[3] = vec2[3] (
+    //vec2(0.0, 0.0),
+    //vec2(0.5, 0.866025403785),
+    //vec2(1.0, 0.0)
+//);
+
 uniform sampler2D MainTex;
 uniform float daytimeFade;
 uniform sampler2D Spectrum;
@@ -14,6 +26,7 @@ varying vec4 col;
 varying float brightnessFalloff;
 varying vec3 vScreen;
 varying vec3 vPos;
+varying vec2 vertexOnPlane;
 
 vec4 computeScreenPos(vec4 pos) {
 	vec4 o = pos * 0.5f;
@@ -23,7 +36,18 @@ vec4 computeScreenPos(vec4 pos) {
 }
 
 void vertex() {
-	vec4 v = (PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	int offset = VERTEX_ID % 3;
+	vertexOnPlane = VERTICES[offset];
+	vec3 direction = normalize(VERTEX);
+	vec3 axisA = cross(direction, vec3(0.0,1.0,0.0));
+	if (length(axisA) < 0.001) {
+		axisA = cross(direction, vec3(0.0,0.0,1.0));
+	}
+	axisA = normalize(axisA);
+	vec3 axisB = cross(direction, axisA);
+	vec3 vertexOnSphere = (axisA * vertexOnPlane.y + axisB * vertexOnPlane.x) * 250.0;
+
+	vec4 v = (PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX + vertexOnSphere, 1.0));
 
 	vec4 screenPos = computeScreenPos(v);
 	vec2 screenSpaceUV = screenPos.xy / screenPos.w;
@@ -38,14 +62,20 @@ void vertex() {
 	vScreen = screenPos.xyz / v.w;
 
 	vPos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	POSITION = v;
 }
 
 void fragment() {
+	float falloff = dot(vertexOnPlane, vertexOnPlane);
+	if (falloff > 1.0) {
+		discard;
+	}
+	
 	vec4 screenCol = texture(MainTex, vScreen.xy);
 	
-	float b = brightnessFalloff;
-	b = saturate(b+0.1);
-	b*=b;
+	float b = 0.25 - falloff;
+	b = saturate(b + 0.5);
+	b *= b;
 	
 	vec3 rayPos = CAMERA_POSITION_WORLD;
 	vec3 rayDir = normalize(vPos - rayPos);

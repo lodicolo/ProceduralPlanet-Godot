@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Godot;
+using ProceduralPlanet.scripts.planet;
 
 namespace ProceduralPlanet.scripts.effects.post_processing;
 
@@ -10,11 +11,11 @@ public partial class AtmosphereEffectNode : PostProcessingEffectNode
     {
     }
 
-    protected override void OnUpdateSettings(Viewport sourceViewport, planet.CelestialBodyGenerator generator, Shader shader)
+    protected override void OnUpdateSettings(Viewport sourceViewport, CelestialBodyGenerator generator, Shader shader)
     {
         base.OnUpdateSettings(sourceViewport, generator, shader);
 
-        if (ShaderMaterial is not { } shaderMaterial)
+        if (ShaderMaterial is not { } shaderMaterial || !(generator.Body?.Shading?.IsAtmosphereEnabled ?? false))
         {
             return;
         }

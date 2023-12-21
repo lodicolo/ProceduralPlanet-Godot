@@ -1,4 +1,5 @@
 using Godot;
+using ProceduralPlanet.scripts.planet;
 
 namespace ProceduralPlanet.scripts.effects.post_processing;
 
@@ -26,7 +27,7 @@ public abstract partial class PostProcessingEffectNode : EffectNode
         }
     }
 
-    public void UpdateSettings(Viewport sourceViewport, planet.CelestialBodyGenerator generator, Shader shader)
+    public void UpdateSettings(Viewport sourceViewport, CelestialBodyGenerator generator, Shader shader)
     {
         if (material?.Shader != shader)
         {
@@ -41,7 +42,7 @@ public abstract partial class PostProcessingEffectNode : EffectNode
         OnUpdateSettings(sourceViewport, generator, shader);
     }
 
-    protected virtual void OnUpdateSettings(Viewport sourceViewport, planet.CelestialBodyGenerator generator, Shader shader)
+    protected virtual void OnUpdateSettings(Viewport sourceViewport, CelestialBodyGenerator generator, Shader shader)
     {
     }
 

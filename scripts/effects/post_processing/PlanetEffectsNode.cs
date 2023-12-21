@@ -30,9 +30,9 @@ public partial class PlanetEffectsNode : Node
 
 	[Export(PropertyHint.NodePathValidTypes, "Viewport")] public NodePath? AtmosphereViewportPath { get; set; }
 
-	[Export] public bool DisplayAtmosphere { get; set; }
+	private bool IsAtmosphereEnabled => _generator?.Body?.Shading?.IsAtmosphereEnabled ?? false;
 
-	[Export] public bool DisplayOceans { get; set; } = true;
+	private bool IsOceanEnabled => _generator?.Body?.Shading?.IsOceanEnabled ?? false;
 
 	[Export(PropertyHint.NodePathValidTypes, "CelestialBodyGenerator")] public NodePath? GeneratorPath { get; set; }
 
@@ -88,30 +88,42 @@ public partial class PlanetEffectsNode : Node
 
 		var nextViewport = sourceViewport;
 
-		if (DisplayOceans &&
-			_effectsHolder?.OceanEffect is { } oceanEffect &&
-			OceanShader is { } oceanShader)
+		if (OceanTargetMesh is { } oceanTargetMesh && _effectsHolder?.OceanEffect is { } oceanEffect)
 		{
-			oceanEffect.UpdateSettings(nextViewport, _effectsHolder.Generator, oceanShader);
-			if (OceanTargetMesh is { } oceanTargetMesh)
+			if (IsOceanEnabled)
 			{
 				oceanTargetMesh.MaterialOverride = oceanEffect.ShaderMaterial;
-			}
 
-			nextViewport = OceanViewport ?? sourceViewport;
+				if (OceanShader is { } oceanShader)
+				{
+					oceanEffect.UpdateSettings(nextViewport, _effectsHolder.Generator, oceanShader);
+				}
+
+				nextViewport = OceanViewport ?? sourceViewport;
+			}
+			else
+			{
+				oceanTargetMesh.MaterialOverride = default;
+			}
 		}
 
-		if (DisplayAtmosphere &&
-			_effectsHolder?.AtmosphereEffect is { } atmosphereEffect &&
-			AtmosphereShader is { } atmosphereShader)
+		if (AtmosphereTargetMesh is { } atmosphereTargetMesh && _effectsHolder?.AtmosphereEffect is { } atmosphereEffect)
 		{
-			atmosphereEffect.UpdateSettings(nextViewport, _effectsHolder.Generator, atmosphereShader);
-			if (AtmosphereTargetMesh is { } atmosphereTargetMesh)
+			if (IsAtmosphereEnabled)
 			{
 				atmosphereTargetMesh.MaterialOverride = atmosphereEffect.ShaderMaterial;
-			}
 
-			nextViewport = AtmosphereViewport ?? sourceViewport;
+				if (AtmosphereShader is { } atmosphereShader)
+				{
+					atmosphereEffect.UpdateSettings(nextViewport, _effectsHolder.Generator, atmosphereShader);
+				}
+
+				nextViewport = AtmosphereViewport ?? sourceViewport;
+			}
+			else
+			{
+				atmosphereTargetMesh.MaterialOverride = default;
+			}
 		}
 	}
 }

@@ -104,7 +104,7 @@ public partial class AtmosphereSettings : ComputeResource
         }
     }
 
-    [Export]
+    [Export(PropertyHint.Range, "0,1")]
     public float Intensity
     {
         get => _intensity;

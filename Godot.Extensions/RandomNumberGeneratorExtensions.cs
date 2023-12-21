@@ -27,4 +27,31 @@ public static class RandomNumberGeneratorExtensions
             randomNumberGenerator.RandfRange(valueMin, valueMax)
         );
     }
+
+    public static Vector2 RandomUnitCircleVector(this RandomNumberGenerator randomNumberGenerator)
+    {
+        Vector2 vector = new(randomNumberGenerator.RandfRange(-1, 1), randomNumberGenerator.RandfRange(-1, 1));
+        if (vector.LengthSquared() < 0.001)
+        {
+            vector = Vector2.Right;
+        }
+
+        return vector.Normalized();
+    }
+
+    public static Vector3 RandomUnitSphereVector(this RandomNumberGenerator randomNumberGenerator)
+    {
+
+        Vector3 vector = new(
+            randomNumberGenerator.RandfRange(-1, 1),
+            randomNumberGenerator.RandfRange(-1, 1),
+            randomNumberGenerator.RandfRange(-1, 1)
+        );
+        if (vector.LengthSquared() < 0.001)
+        {
+            vector = Vector3.Right;
+        }
+
+        return vector.Normalized();
+    }
 }

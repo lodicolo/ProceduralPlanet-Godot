@@ -17,7 +17,7 @@ public partial class RidgeNoiseSettings : Resource
     private float _scale = 1;
     private float _verticalShift;
 
-    [Export]
+    [Export(PropertyHint.Range, "0,1")]
     public float Elevation
     {
         get => _elevation;

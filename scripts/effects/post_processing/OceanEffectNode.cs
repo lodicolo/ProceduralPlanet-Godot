@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Godot;
+using ProceduralPlanet.scripts.planet;
 
 namespace ProceduralPlanet.scripts.effects.post_processing;
 
@@ -10,16 +11,16 @@ public partial class OceanEffectNode : PostProcessingEffectNode
     {
     }
 
-    protected override void OnUpdateSettings(Viewport sourceViewport, planet.CelestialBodyGenerator generator, Shader shader)
+    protected override void OnUpdateSettings(Viewport sourceViewport, CelestialBodyGenerator generator, Shader shader)
     {
         base.OnUpdateSettings(sourceViewport, generator, shader);
 
-        if (ShaderMaterial is not { } shaderMaterial)
+        if (ShaderMaterial is not { } shaderMaterial || !(generator.Body?.Shading?.IsOceanEnabled ?? false))
         {
             return;
         }
 
-        generator.Body?.Shading?.AtmosphereSettings?.SetProperties(shaderMaterial, generator.BodyScale);
+        generator.Body?.Shading?.SetOceanProperties(shaderMaterial);
 
         var center = generator.GlobalPosition;
         shaderMaterial.SetShaderParameter("OceanCentre", center);
@@ -46,7 +47,5 @@ public partial class OceanEffectNode : PostProcessingEffectNode
             Debug.WriteLine("No directional light");
         }
         shaderMaterial.SetShaderParameter("DirToSun", dirToSun);
-
-        generator.Body?.Shading?.SetOceanProperties(shaderMaterial);
     }
 }
