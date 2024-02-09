@@ -5,6 +5,13 @@
 
 const float maxFloat = 3.402823466e+38;
 
+const vec4 hsv2rgb_K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+
+vec3 hsv2rgb(vec3 hsv) {
+    vec3 p = abs(fract(hsv.xxx + hsv2rgb_K.xyz) * 6.0 - hsv2rgb_K.www);
+    return hsv.z * mix(hsv2rgb_K.xxx, clamp(p - hsv2rgb_K.xxx, 0.0, 1.0), hsv.y);
+}
+
 float saturate(float value) {
 	return min(max(value, 0.0), 1.0);
 }

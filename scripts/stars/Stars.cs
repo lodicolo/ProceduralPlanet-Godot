@@ -218,7 +218,8 @@ public partial class Stars : Node3D
 		Array arrays = new();
 		arrays.Resize((int)Mesh.ArrayType.Max);
 
-		var vertexCount = _count * 3;
+		// var vertexCount = _count * 3;
+		var vertexCount = 8 * 3;
 		var vertices = new Vector3[vertexCount];
 		var indices = new int[vertexCount];
 		var uvs = new Vector2[vertexCount];
@@ -227,18 +228,31 @@ public partial class Stars : Node3D
 		_rng.Seed = (ulong)Seed;
 		for (var vertexIndex = 0; vertexIndex < vertexCount; vertexIndex += 3)
 		{
-			var direction = _rng.RandomUnitSphereVector();
-			var clusterNoise = StarsClusteringAmplitude * (StarsClusteringNoise?.GetNoise3Dv(direction) ?? 1);
-			direction += Vector3.One * clusterNoise;
-			direction = direction.Normalized();
+			// var direction = _rng.RandomUnitSphereVector();
+			// var clusterNoise = StarsClusteringAmplitude * (StarsClusteringNoise?.GetNoise3Dv(direction) ?? 1);
+			// direction += Vector3.One * clusterNoise;
+			// direction = direction.Normalized();
+			var angle = MathF.PI / 4 * vertexIndex / 3;
+			var (sin, cos) = MathF.SinCos(angle);
+			var direction = new Vector3(cos, 0, sin);
 
-			var (verticesTri, indicesTri, uvsTri) = GenerateTriangle(direction, vertexIndex);
+			// var (verticesTri, indicesTri, uvsTri) = GenerateTriangle(direction, vertexIndex);
+			// for (var offset = 0; offset < 3; ++offset)
+			// {
+			// 	vertices[vertexIndex + offset] = verticesTri[offset];
+			// 	indices[vertexIndex + offset] = indicesTri[offset];
+			// 	uvs[vertexIndex + offset] = uvsTri[offset];
+			// 	colors[vertexIndex + offset] = new Color(Math.Clamp(Math.Abs(clusterNoise), 0, 1), 0, 0);
+			// }
+
+			var (center, uv, color) = GenerateStarMetadata(direction, angle);
 			for (var offset = 0; offset < 3; ++offset)
 			{
-				vertices[vertexIndex + offset] = verticesTri[offset];
-				indices[vertexIndex + offset] = indicesTri[offset];
-				uvs[vertexIndex + offset] = uvsTri[offset];
-				colors[vertexIndex + offset] = new Color(Math.Clamp(Math.Abs(clusterNoise), 0, 1), 0, 0);
+				var index = vertexIndex + offset;
+				indices[index] = index;
+				vertices[index] = center;
+				uvs[index] = uv;
+				colors[index] = color;
 			}
 		}
 
@@ -254,10 +268,26 @@ public partial class Stars : Node3D
 		return true;
 	}
 
+	private (Vector3, Vector2, Color) GenerateStarMetadata(Vector3 direction, float angle)
+	{
+		var scale = angle / MathF.Tau;
+		float size = 5000f;
+		float distance = 100_00f * MathF.Pow(10, scale);
+		var scaledDirection = direction * distance;
+		var uv = new Vector2(size, 1);
+
+		var hue = scale * 0.75f * 24f / 23f;
+		var magnitude = 0f;
+		Color color = new(hue, magnitude, 0);
+
+		return (scaledDirection, uv, color);
+	}
+
 	private (Vector3[], int[], Vector2[]) GenerateTriangle(Vector3 direction, int indexOffset)
 	{
 		var size = _rng.RandfRange(SizeMinMax.X, SizeMinMax.Y);
 		var brightness = _rng.RandfRange(MinBrightness, MaxBrightness);
+		var distance = _rng.RandfRange(Distance / 2f, Distance * 200f);
 		var spectrumT = _rng.Randf();
 
 		var axisA = direction.Cross(Vector3.Up);

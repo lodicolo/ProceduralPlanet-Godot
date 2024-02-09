@@ -34,17 +34,17 @@ public partial class PanelDebug : Panel
 
 		if (_positionX is { } positionX)
 		{
-			positionX.Value = camera.GlobalPosition.X;
+			positionX.Value = camera.Position.X;
 		}
 
 		if (_positionY is { } positionY)
 		{
-			positionY.Value = camera.GlobalPosition.Y;
+			positionY.Value = camera.Position.Y;
 		}
 
 		if (_positionZ is { } positionZ)
 		{
-			positionZ.Value = camera.GlobalPosition.Z;
+			positionZ.Value = camera.Position.Z;
 		}
 
 		if (_rotationX is { } rotationX)
@@ -187,6 +187,6 @@ public partial class PanelDebug : Panel
 		base._Process(delta);
 
 		UpdateOptionsFromCamera();
-		Console.WriteLine($"LP={Camera?.Position}, GP={Camera?.GlobalPosition}");
+		// Console.WriteLine($"LP={Camera?.Position}, GP={Camera?.GlobalPosition}");
 	}
 }

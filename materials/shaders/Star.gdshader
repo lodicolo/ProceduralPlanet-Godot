@@ -5,8 +5,8 @@ render_mode unshaded, cull_front, depth_draw_never, depth_prepass_alpha;
 
 const vec2 VERTICES[3] = vec2[3] (
     vec2(-1.7321, -1.0),
-    vec2(0.0, 2.0),
-    vec2(1.7321, -1.0)
+    vec2(1.7321, -1.0),
+    vec2(0.0, 2.0)
 );
 
 //const vec2 VERTICES[3] = vec2[3] (
@@ -27,6 +27,7 @@ varying float brightnessFalloff;
 varying vec3 vScreen;
 varying vec3 vPos;
 varying vec2 vertexOnPlane;
+varying vec3 vertexOriginal;
 
 vec4 computeScreenPos(vec4 pos) {
 	vec4 o = pos * 0.5f;
@@ -40,27 +41,29 @@ void vertex() {
 	vertexOnPlane = VERTICES[offset];
 	vec3 direction = normalize(VERTEX);
 	vec3 axisA = cross(direction, vec3(0.0,1.0,0.0));
-	if (length(axisA) < 0.001) {
-		axisA = cross(direction, vec3(0.0,0.0,1.0));
+	if (length(axisA) < 0.0001) {
+		axisA = cross(direction, vec3(0.0,0.0,-1.0));
 	}
 	axisA = normalize(axisA);
 	vec3 axisB = cross(direction, axisA);
-	vec3 vertexOnSphere = (axisA * vertexOnPlane.y + axisB * vertexOnPlane.x) * 250.0;
+	vec3 vertexOnSphere = (axisA * vertexOnPlane.y + axisB * vertexOnPlane.x) * UV.x * 1.;
 
+	//vec4 v = PROJECTION_MATRIX * vec4(VERTEX + vertexOnSphere, 1.0);
 	vec4 v = (PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX + vertexOnSphere, 1.0));
 
-	vec4 screenPos = computeScreenPos(v);
-	vec2 screenSpaceUV = screenPos.xy / screenPos.w;
-	vec4 backgroundCol = texture(MainTex, screenSpaceUV.xy);
-	
-	float backgroundBrightness = saturate(dot(backgroundCol.rgb, vec3(1.0)) / 3.0);
-	float starBrightness = (1.0 - backgroundBrightness);
-	vec4 starCol = texture(Spectrum, vec2(UV.y, 0.5));
-	vec4 clusterCol = texture(ClusterSpectrum, vec2(UV.y, 0.5));
-	col = vec4(mix(starCol.rgb, clusterCol.rgb, COLOR.r), starBrightness);
-	brightnessFalloff = UV.x;
-	vScreen = screenPos.xyz / v.w;
+	//vec4 screenPos = computeScreenPos(v);
+	//vec2 screenSpaceUV = screenPos.xy / screenPos.w;
+	//vec4 backgroundCol = texture(MainTex, screenSpaceUV.xy);
+	//
+	//float backgroundBrightness = saturate(dot(backgroundCol.rgb, vec3(1.0)) / 3.0);
+	//float starBrightness = (1.0 - backgroundBrightness);
+	//vec4 starCol = texture(Spectrum, vec2(UV.y, 0.5));
+	//vec4 clusterCol = texture(ClusterSpectrum, vec2(UV.y, 0.5));
+	//col = vec4(mix(starCol.rgb, clusterCol.rgb, COLOR.r), starBrightness);
+	//brightnessFalloff = UV.x;
+	//vScreen = screenPos.xyz / v.w;
 
+	//vPos = VERTEX + vertexOnSphere;
 	vPos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	POSITION = v;
 }
@@ -68,25 +71,26 @@ void vertex() {
 void fragment() {
 	float falloff = dot(vertexOnPlane, vertexOnPlane);
 	if (falloff > 1.0) {
-		discard;
+		//discard;
 	}
-	
-	vec4 screenCol = texture(MainTex, vScreen.xy);
-	
-	float b = 0.25 - falloff;
-	b = saturate(b + 0.5);
-	b *= b;
-	
-	vec3 rayPos = CAMERA_POSITION_WORLD;
-	vec3 rayDir = normalize(vPos - rayPos);
-	
-	vec2 hit = raySphere(PlanetCentre, OceanRadius, rayPos, rayDir);
-	float dstThroughOcean = hit.y;
 
-	float oceanIntersectDepth = saturate(dstThroughOcean);
-	
-	float visibility = saturate(length(exp(-daytimeFade * screenCol.rgb))) * (1.0 - oceanIntersectDepth);
+	//vec4 screenCol = texture(MainTex, vScreen.xy);
+	//
+	//float b = 0.25 - falloff;
+	//b = saturate(b + 0.5);
+	//b *= b;
+	//
+	//vec3 rayPos = CAMERA_POSITION_WORLD;
+	//vec3 rayDir = normalize(vPos - rayPos);
+	//
+	//vec2 hit = raySphere(PlanetCentre, OceanRadius, rayPos, rayDir);
+	//float dstThroughOcean = hit.y;
+//
+	//float oceanIntersectDepth = saturate(dstThroughOcean);
+	//
+	//float visibility = saturate(length(exp(-daytimeFade * screenCol.rgb))) * (1.0 - oceanIntersectDepth);
 
-	ALBEDO = screenCol.rgb * (1.0 - visibility) + col.rgb * visibility;
-	ALPHA = col.a * b * visibility;
+    ALBEDO = hsv2rgb(vec3(COLOR.x, 1.0, 1.0));
+// 	ALBEDO = vec3(1.0, 1.0, 1.0);//screenCol.rgb * (1.0 - visibility) + col.rgb * visibility;
+	ALPHA = COLOR.a;//col.a * b * visibility;
 }

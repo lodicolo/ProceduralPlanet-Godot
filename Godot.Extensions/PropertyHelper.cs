@@ -36,7 +36,8 @@ public static class PropertyHelper
 
     public static bool SetIfChanged<T>(ref T backingField, T value, ref bool dirty, out T? lastValue)
     {
-        dirty = SetIfChanged(ref backingField, value, out lastValue);
-        return dirty;
+        var changed = SetIfChanged(ref backingField, value, out lastValue);
+        dirty |= changed;
+        return changed;
     }
 }
